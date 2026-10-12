@@ -1,706 +1,308 @@
-/* ==========================================
-   DESIGN SYSTEM & VARIABLES
-   ========================================== */
-:root {
-  --primary: #0f172a;         /* Dark Slate untuk elemen utama & teks */
-  --primary-dark: #020617;
-  --accent: #2563eb;          /* Royal Blue untuk aksi utama & highlight */
-  --accent-hover: #1d4ed8;
-  --accent-light: #eff6ff;
-  --bg-page: #f8fafc;         /* Soft Light Grey Background */
-  --bg-card: #ffffff;
-  --border-color: #e2e8f0;    /* Light Slate Border */
-  --text-main: #334155;
-  --text-muted: #64748b;
-  --success-bg: #ecfdf5;
-  --success-border: #a7f3d0;
-  --radius: 12px;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--bg-page);
-  color: var(--text-main);
-  line-height: 1.5;
-}
-
-.page-shell {
-  min-height: 100vh;
-  padding: 20px 16px;
-}
-
-.container {
-  max-width: 860px;
-  margin: 0 auto;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  box-shadow: var(--shadow-lg);
-  padding: 32px 28px;
-}
-
-/* ==========================================
-   TOPBAR & HEADER
-   ========================================== */
-.topbar {
-  max-width: 860px;
-  margin: 0 auto 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--primary);
-}
-
-.brand-logo {
-  background: var(--accent);
-  color: #ffffff;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-}
-
-.brand-text {
-  color: var(--primary);
-}
-
-.tag {
-  background: var(--accent-light);
-  color: var(--accent-hover);
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  border: 1px solid #dbeafe;
-}
-
-.hero {
-  text-align: center;
-  margin-bottom: 28px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.hero h1 {
-  margin: 0 0 10px;
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  color: var(--primary);
-  font-weight: 700;
-}
-
-.hero p {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 1rem;
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-/* ==========================================
-   STEP 1: IDENTITY FORM (DATA DIRI)
-   ========================================== */
-.identity-section {
-  background: #ffffff;
-  border-radius: var(--radius);
-}
-
-.section-header {
-  margin-bottom: 20px;
-}
-
-.section-header h2 {
-  margin: 0 0 6px;
-  font-size: 1.25rem;
-  color: var(--primary);
-}
-
-.section-header p {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
-
-.identity-form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.full-width {
-  grid-column: span 2;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-group label {
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: var(--text-main);
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 0.95rem;
-  color: var(--text-main);
-  background: #ffffff;
-  transition: all 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-/* ==========================================
-   STICKY ASSESSMENT HEADER (TIMER & PROGRESS)
-   ========================================== */
-.sticky-header {
-  position: sticky;
-  top: 16px;
-  z-index: 99;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 14px 20px;
-  margin-bottom: 24px;
-  box-shadow: var(--shadow-lg);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  transition: all 0.3s ease;
-}
-
-.timer-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.timer-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.timer-display {
-  font-size: 1.25rem;
-  font-family: monospace;
-  font-weight: 700;
-  background: var(--accent-light);
-  color: var(--accent-hover);
-  padding: 4px 12px;
-  border-radius: 8px;
-  border: 1px solid #bfdbfe;
-}
-
-.progress-box {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-  max-width: 260px;
-}
-
-.progress-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.progress-track {
-  width: 100%;
-  height: 8px;
-  background: #e2e8f0;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: var(--accent);
-  transition: width 0.3s ease;
-}
-
-/* Red Alert for Low Time (<= 5 Mins) */
-.sticky-header.warning {
-  border-color: #fca5a5;
-  background: rgba(254, 242, 242, 0.95);
-}
-
-.sticky-header.warning .timer-display {
-  background: #fee2e2;
-  color: #dc2626;
-  border-color: #fca5a5;
-  animation: pulse 1s infinite alternate;
-}
-
-@keyframes pulse {
-  from { opacity: 1; }
-  to { opacity: 0.6; }
-}
-
-/* ==========================================
-   STEP 2: QUESTION CARDS & OPTIONS
-   ========================================== */
-.quiz-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.question-card {
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  box-shadow: var(--shadow);
-  transition: border-color 0.2s ease;
-}
-
-.question-card:hover {
-  border-color: #cbd5e1;
-}
-
-.question-badge {
-  display: inline-block;
-  background: var(--accent-light);
-  color: var(--accent);
-  font-weight: 600;
-  font-size: 0.75rem;
-  padding: 3px 10px;
-  border-radius: 20px;
-  margin-bottom: 10px;
-}
-
-.question-text {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--primary);
-  margin: 0 0 16px;
-  line-height: 1.5;
-}
-
-.answer-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* Interactive Option Cards */
-.option-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  cursor: pointer;
-  background: #ffffff;
-  transition: all 0.2s ease;
-  user-select: none;
-}
-
-.option-card:hover {
-  background-color: #f8fafc;
-  border-color: #cbd5e1;
-}
-
-.option-card input[type="radio"] {
-  accent-color: var(--accent);
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-.option-card input[type="radio"]:checked + .option-label,
-.option-card:has(input[type="radio"]:checked) .option-label {
-  font-weight: 600;
-  color: var(--accent-hover);
-}
-
-.option-card:has(input[type="radio"]:checked) {
-  background-color: var(--accent-light);
-  border-color: var(--accent);
-}
-
-.option-label {
-  font-size: 0.95rem;
-  color: var(--text-main);
-}
-
-/* ==========================================
-   BUTTONS
-   ========================================== */
-.primary-btn {
-  width: 100%;
-  background: var(--accent);
-  color: #ffffff;
-  font-weight: 600;
-  padding: 14px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s ease, transform 0.1s ease;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-}
-
-.primary-btn:hover {
-  background: var(--accent-hover);
-}
-
-.primary-btn:active {
-  transform: scale(0.99);
-}
-
-/* ==========================================
-   STEP 3: PAPI KOSTICK RESULT BOARD
-   ========================================== */
-.result-section {
-  animation: fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.candidate-summary {
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  padding: 20px;
-  border-radius: var(--radius);
-  margin-bottom: 20px;
-  box-shadow: var(--shadow);
-}
-
-.candidate-summary h3 {
-  margin-top: 0;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 8px;
-  color: var(--primary);
-  font-size: 1.1rem;
-}
-
-.papi-results-container {
-  margin-top: 20px;
-}
-
-.papi-group {
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: var(--shadow);
-}
-
-.papi-group h4 {
-  margin-top: 0;
-  margin-bottom: 14px;
-  color: var(--primary);
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
-.papi-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.papi-card {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px 6px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s ease;
-}
-
-.papi-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-}
-
-.papi-card .code {
-  font-weight: 800;
-  font-size: 1.15rem;
-  color: var(--accent);
-}
-
-.papi-card .score {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin: 2px 0;
-}
-
-.papi-card .label {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  line-height: 1.15;
-}
-
-.summary-text {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  background: #f1f5f9;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 0.88rem;
-  margin: 0;
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
-}
-
-.grand-total-box {
-  background: var(--primary);
-  color: #ffffff;
-  text-align: center;
-  padding: 16px;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  letter-spacing: 0.3px;
-  box-shadow: var(--shadow);
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* ==========================================
-   RESPONSIVE LAYOUT
-   ========================================== */
-@media (max-width: 640px) {
-  .container {
-    padding: 20px 16px;
+document.addEventListener('DOMContentLoaded', function () {
+  // 1. Inisialisasi Elemen DOM
+  const identitySection = document.getElementById('identitySection');
+  const identityForm = document.getElementById('identityForm');
+  const quizForm = document.getElementById('quizForm');
+  const resultBox = document.getElementById('result');
+  const quizHeader = document.getElementById('quizHeader');
+  const timerDisplay = document.getElementById('timerDisplay');
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
+
+  let candidateData = {};
+  let timerInterval = null;
+  const TOTAL_QUESTIONS = 90;
+  const TOTAL_TIME_SECONDS = 30 * 60; // 30 Menit
+  let timeRemaining = TOTAL_TIME_SECONDS;
+
+  // STEP 1: Submit Data Diri
+  if (identityForm) {
+    identityForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      candidateData = {
+        fullName: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        gender: document.getElementById('gender').value,
+        position: document.getElementById('position').value.trim()
+      };
+
+      if (identitySection) identitySection.classList.add('hidden');
+      const heroSection = document.getElementById('heroSection');
+      if (heroSection) heroSection.classList.add('hidden');
+
+      if (quizHeader) quizHeader.classList.remove('hidden');
+      if (quizForm) quizForm.classList.remove('hidden');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      startTimer();
+      initProgressTracker();
+    });
   }
 
-  .identity-form-grid {
-    grid-template-columns: 1fr;
+  // TIMER & PROGRESS
+  function startTimer() {
+    updateTimerDisplay();
+    timerInterval = setInterval(function () {
+      timeRemaining--;
+      updateTimerDisplay();
+
+      if (timeRemaining <= 0) {
+        clearInterval(timerInterval);
+        alert("Waktu pengerjaan (30 menit) telah habis. Jawaban Anda akan otomatis dikirim.");
+        processQuizSubmission(true);
+      }
+    }, 1000);
   }
 
-  .full-width {
-    grid-column: span 1;
+  function updateTimerDisplay() {
+    if (!timerDisplay) return;
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    timerDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+    if (timeRemaining <= 300 && quizHeader) {
+      quizHeader.classList.add('warning');
+    }
   }
 
-  .sticky-header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
+  function initProgressTracker() {
+    if (!quizForm) return;
+    quizForm.addEventListener('change', function () {
+      const answeredQuestions = quizForm.querySelectorAll('.question-card input[type="radio"]:checked').length;
+      const percentage = Math.round((answeredQuestions / TOTAL_QUESTIONS) * 100);
+
+      if (progressBar) progressBar.style.width = `${percentage}%`;
+      if (progressText) progressText.textContent = `${answeredQuestions} / ${TOTAL_QUESTIONS} Soal (${percentage}%)`;
+    });
   }
 
-  .progress-box {
-    max-width: 100%;
+  // STEP 2: Submit Form Psikotes
+  if (quizForm) {
+    quizForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      clearInterval(timerInterval);
+      processQuizSubmission(false);
+    });
   }
 
-   /* ==========================================
-   COMPLETION BANNER & DOWNLOAD BUTTON STYLING
-   ========================================== */
-.completion-banner {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: var(--shadow);
-}
+  // STEP 3: Kalkulasi & Render Hasil + Banner + Tombol Download
+  function processQuizSubmission(isTimeOut) {
+    const papiScores = {
+      G: 0, L: 0, I: 0, T: 0, V: 0, S: 0, R: 0, D: 0, C: 0, E: 0,
+      N: 0, A: 0, P: 0, X: 0, B: 0, O: 0, Z: 0, K: 0, F: 0, W: 0
+    };
 
-.completion-banner h2 {
-  margin: 0 0 8px;
-  color: #166534;
-  font-size: 1.4rem;
-}
+    const questions = quizForm.querySelectorAll('.question-card');
+    let answeredCount = 0;
 
-.completion-banner p {
-  margin: 0 0 16px;
-  color: #15803d;
-  font-size: 1rem;
-}
+    if (isTimeOut) {
+      const radioInputs = quizForm.querySelectorAll('input[type="radio"]');
+      radioInputs.forEach(input => input.removeAttribute('required'));
+    }
 
-.completion-info {
-  background: #ffffff;
-  border: 1px solid #dcfce7;
-  border-radius: 8px;
-  padding: 16px;
-  color: #166534;
-}
+    questions.forEach((question, index) => {
+      const selected = question.querySelector('input:checked');
+      if (selected) {
+        answeredCount++;
+        const val = Number(selected.value);
+        const qNum = index + 1;
 
-.completion-info p {
-  margin: 0 0 8px;
-  color: #14532d;
-  font-size: 0.95rem;
-}
+        if (val >= 4) {
+          if (qNum % 10 === 1) papiScores.G++;
+          else if (qNum % 10 === 2) papiScores.L++;
+          else if (qNum % 10 === 3) papiScores.I++;
+          else if (qNum % 10 === 4) papiScores.T++;
+          else if (qNum % 10 === 5) papiScores.V++;
+          else if (qNum % 10 === 6) papiScores.S++;
+          else if (qNum % 10 === 7) papiScores.R++;
+          else if (qNum % 10 === 8) papiScores.D++;
+          else if (qNum % 10 === 9) papiScores.C++;
+          else papiScores.E++;
+        } else if (val <= 2) {
+          if (qNum % 10 === 1) papiScores.N++;
+          else if (qNum % 10 === 2) papiScores.A++;
+          else if (qNum % 10 === 3) papiScores.P++;
+          else if (qNum % 10 === 4) papiScores.X++;
+          else if (qNum % 10 === 5) papiScores.B++;
+          else if (qNum % 10 === 6) papiScores.O++;
+          else if (qNum % 10 === 7) papiScores.Z++;
+          else if (qNum % 10 === 8) papiScores.K++;
+          else if (qNum % 10 === 9) papiScores.F++;
+          else papiScores.W++;
+        }
+      }
+    });
 
-.completion-info ul {
-  margin: 0;
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+    const totalRole = papiScores.G + papiScores.L + papiScores.I + papiScores.T + papiScores.V +
+                      papiScores.S + papiScores.R + papiScores.D + papiScores.C + papiScores.E;
 
-.completion-info li {
-  font-size: 0.9rem;
-  color: #166534;
-  line-height: 1.4;
-}
+    const totalNeed = papiScores.N + papiScores.A + papiScores.P + papiScores.X + papiScores.B +
+                      papiScores.O + papiScores.Z + papiScores.K + papiScores.F + papiScores.W;
 
-.download-box {
-  margin-top: 20px;
-  text-align: center;
-}
+    const grandTotal = totalRole + totalNeed;
 
-.download-btn {
-  background: #16a34a;
-  color: #ffffff;
-  font-weight: 600;
-  padding: 14px 24px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s ease, transform 0.1s ease;
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-}
+    // Sembunyikan Form Soal & Header
+    if (quizHeader) quizHeader.classList.add('hidden');
+    if (quizForm) quizForm.classList.add('hidden');
 
-.download-btn:hover {
-  background: #15803d;
-}
+    // Tampilkan Container Hasil
+    if (resultBox) {
+      resultBox.classList.remove('hidden');
+      resultBox.style.display = 'block'; // Memaksa elemen tampil
 
-.download-btn:active {
-  transform: scale(0.99);
-}
-  .papi-grid {
-    grid-template-columns: repeat(5, 1fr);
+      resultBox.innerHTML = `
+        <!-- BANNER UCAPAN TERIMA KASIH -->
+        <div class="completion-banner" style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:24px; margin-bottom:24px;">
+          <h2 style="margin:0 0 8px; color:#166534; font-size:1.4rem;">🎉 Tes Asesmen Selesai!</h2>
+          <p style="margin:0 0 16px; color:#15803d; font-size:1rem;">Terima kasih telah menyelesaikan Asesmen Kepribadian PAPI Kostick.</p>
+          <div style="background:#ffffff; border:1px solid #dcfce7; border-radius:8px; padding:16px; color:#166534;">
+            <p style="margin:0 0 8px; font-weight:bold; color:#14532d;">Informasi Penting untuk Peserta:</p>
+            <ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px;">
+              <li>Jawaban dan hasil tes Anda telah berhasil terekam dalam sistem rekrutmen kami.</li>
+              <li>Tim HRD / Talent Acquisition akan meninjau profil kepribadian ini bersama dengan berkas pendaftaran Anda.</li>
+              <li>Pengumuman tahap seleksi selanjutnya akan disampaikan via <strong>Email</strong> atau <strong>WhatsApp</strong> resmi kami.</li>
+            </ul>
+          </div>
+        </div>
+
+        ${isTimeOut ? '<div style="color:#b91c1c; font-weight:600; background:#fee2e2; border:1px solid #fca5a5; padding:12px 16px; border-radius:8px; margin-bottom:20px;">⚠️ Waktu pengerjaan (30 menit) telah habis. Hasil di bawah dihitung berdasarkan jawaban yang berhasil tersubmit.</div>' : ''}
+
+        <!-- DATA PESERTA -->
+        <div class="candidate-summary" style="background:#fff; border:1px solid #e2e8f0; padding:20px; border-radius:12px; margin-bottom:20px;">
+          <h3 style="margin-top:0; color:#0f172a; font-size:1.1rem; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">Data Peserta</h3>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:8px 16px; margin-top:12px;">
+            <p style="margin:0;"><strong>Nama Lengkap:</strong> ${candidateData.fullName || '-'}</p>
+            <p style="margin:0;"><strong>Email:</strong> ${candidateData.email || '-'}</p>
+            <p style="margin:0;"><strong>No. HP / WA:</strong> ${candidateData.phone || '-'}</p>
+            <p style="margin:0;"><strong>Jenis Kelamin:</strong> ${candidateData.gender || '-'}</p>
+            <p style="margin:0;"><strong>Posisi Dilamar:</strong> ${candidateData.position || '-'}</p>
+            <p style="margin:0;"><strong>Soal Terjawab:</strong> ${answeredCount} / ${TOTAL_QUESTIONS} Soal</p>
+          </div>
+        </div>
+
+        <!-- HASIL PROFIL KOSTICK -->
+        <div class="papi-results-container">
+          <h3 style="color:#0f172a; font-size:1.15rem; margin-bottom:16px;">Profil Kepribadian PAPI Kostick</h3>
+          
+          <div class="papi-group" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin-bottom:20px;">
+            <h4 style="margin-top:0; color:#0f172a;">Skala Peran (Role) — Total Score: ${totalRole}</h4>
+            <div class="papi-grid">
+              <div class="papi-card"><span class="code">G</span><span class="score">${papiScores.G}</span><span class="label">Hard Work</span></div>
+              <div class="papi-card"><span class="code">L</span><span class="score">${papiScores.L}</span><span class="label">Leadership</span></div>
+              <div class="papi-card"><span class="code">I</span><span class="score">${papiScores.I}</span><span class="label">Decision</span></div>
+              <div class="papi-card"><span class="code">T</span><span class="score">${papiScores.T}</span><span class="label">Pace</span></div>
+              <div class="papi-card"><span class="code">V</span><span class="score">${papiScores.V}</span><span class="label">Vigorousness</span></div>
+              <div class="papi-card"><span class="code">S</span><span class="score">${papiScores.S}</span><span class="label">Social</span></div>
+              <div class="papi-card"><span class="code">R</span><span class="score">${papiScores.R}</span><span class="label">Theoretical</span></div>
+              <div class="papi-card"><span class="code">D</span><span class="score">${papiScores.D}</span><span class="label">Detail</span></div>
+              <div class="papi-card"><span class="code">C</span><span class="score">${papiScores.C}</span><span class="label">Organized</span></div>
+              <div class="papi-card"><span class="code">E</span><span class="score">${papiScores.E}</span><span class="label">Emotional</span></div>
+            </div>
+            <p class="summary-text">G: ${papiScores.G}, L: ${papiScores.L}, I: ${papiScores.I}, T: ${papiScores.T}, V: ${papiScores.V}, S: ${papiScores.S}, R: ${papiScores.R}, D: ${papiScores.D}, C: ${papiScores.C}, E: ${papiScores.E} <strong>(Total: ${totalRole})</strong></p>
+          </div>
+
+          <div class="papi-group" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin-bottom:20px;">
+            <h4 style="margin-top:0; color:#0f172a;">Skala Kebutuhan (Need) — Total Score: ${totalNeed}</h4>
+            <div class="papi-grid">
+              <div class="papi-card"><span class="code">N</span><span class="score">${papiScores.N}</span><span class="label">Finish</span></div>
+              <div class="papi-card"><span class="code">A</span><span class="score">${papiScores.A}</span><span class="label">Achieve</span></div>
+              <div class="papi-card"><span class="code">P</span><span class="score">${papiScores.P}</span><span class="label">Control</span></div>
+              <div class="papi-card"><span class="code">X</span><span class="score">${papiScores.X}</span><span class="label">Noticed</span></div>
+              <div class="papi-card"><span class="code">B</span><span class="score">${papiScores.B}</span><span class="label">Belong</span></div>
+              <div class="papi-card"><span class="code">O</span><span class="score">${papiScores.O}</span><span class="label">Affection</span></div>
+              <div class="papi-card"><span class="code">Z</span><span class="score">${papiScores.Z}</span><span class="label">Change</span></div>
+              <div class="papi-card"><span class="code">K</span><span class="score">${papiScores.K}</span><span class="label">Forceful</span></div>
+              <div class="papi-card"><span class="code">F</span><span class="score">${papiScores.F}</span><span class="label">Follow</span></div>
+              <div class="papi-card"><span class="code">W</span><span class="score">${papiScores.W}</span><span class="label">Rules</span></div>
+            </div>
+            <p class="summary-text">N: ${papiScores.N}, A: ${papiScores.A}, P: ${papiScores.P}, X: ${papiScores.X}, B: ${papiScores.B}, O: ${papiScores.O}, Z: ${papiScores.Z}, K: ${papiScores.K}, F: ${papiScores.F}, W: ${papiScores.W} <strong>(Total: ${totalNeed})</strong></p>
+          </div>
+
+          <div class="grand-total-box" style="background:#0f172a; color:#fff; text-align:center; padding:16px; border-radius:10px; margin-bottom:20px;">
+            <strong>TOTAL SKOR KESELURUHAN (ROLE + NEED): ${grandTotal} / 90</strong>
+          </div>
+
+          <!-- TOMBOL UNDUH LAPORAN EXCEL (.CSV) -->
+          <div style="text-align:center; margin-top:24px;">
+            <button id="downloadExcelBtn" style="background:#16a34a; color:#ffffff; font-weight:bold; padding:14px 28px; border:none; border-radius:8px; cursor:pointer; font-size:1rem; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); width:100%;">
+              📊 Download Laporan Hasil (Excel / CSV)
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Listener Tombol Download Excel
+      setTimeout(() => {
+        const downloadBtn = document.getElementById('downloadExcelBtn');
+        if (downloadBtn) {
+          downloadBtn.onclick = function () {
+            downloadReportAsCSV(candidateData, papiScores, totalRole, totalNeed, grandTotal, answeredCount);
+          };
+        }
+      }, 100);
+
+      window.scrollTo({ top: resultBox.offsetTop - 20, behavior: 'smooth' });
+    }
   }
-}
-/* ==========================================
-   PERBAIKAN TAMPILAN RESULT SECTION & DOWNLOAD
-   ========================================== */
-/* Memastikan section result muncul sempurna saat class .hidden dilepas */
-#result:not(.hidden) {
-  display: block !important;
-  animation: fadeIn 0.4s ease-in-out;
-}
 
-/* Banner Ucapan Terima Kasih */
-.completion-banner {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: var(--shadow);
-}
+  // FUNGSI UTILITY UNDUH FILE EXCEL
+  function downloadReportAsCSV(candidate, scores, roleTotal, needTotal, grandTotal, answered) {
+    const csvRows = [
+      ["LAPORAN HASIL ASESMEN PSIKOTES PAPI KOSTICK"],
+      ["Tanggal Asesmen", new Date().toLocaleDateString('id-ID')],
+      [],
+      ["DATA PESERTA"],
+      ["Nama Lengkap", candidate.fullName || "-"],
+      ["Email", candidate.email || "-"],
+      ["No. HP / WA", candidate.phone || "-"],
+      ["Jenis Kelamin", candidate.gender || "-"],
+      ["Posisi Dilamar", candidate.position || "-"],
+      ["Soal Terjawab", `${answered} / 90 Soal`],
+      [],
+      ["SKOR SKALA PERAN (ROLE)"],
+      ["Kode Aspek", "Nama Aspek", "Skor (0-9)"],
+      ["G", "Hard Work", scores.G],
+      ["L", "Leadership", scores.L],
+      ["I", "Decision Making", scores.I],
+      ["T", "Pace", scores.T],
+      ["V", "Vigorousness", scores.V],
+      ["S", "Social Extension", scores.S],
+      ["R", "Theoretical Type", scores.R],
+      ["D", "Detail Conscious", scores.D],
+      ["C", "Organized", scores.C],
+      ["E", "Emotional Control", scores.E],
+      ["TOTAL SKALA PERAN", "", roleTotal],
+      [],
+      ["SKOR SKALA KEBUTUHAN (NEED)"],
+      ["Kode Aspek", "Nama Aspek", "Skor (0-9)"],
+      ["N", "Need to Finish", scores.N],
+      ["A", "Need to Achieve", scores.A],
+      ["P", "Need to Control", scores.P],
+      ["X", "Need to be Noticed", scores.X],
+      ["B", "Need to Belong", scores.B],
+      ["O", "Need for Affection", scores.O],
+      ["Z", "Need for Change", scores.Z],
+      ["K", "Need to be Forceful", scores.K],
+      ["F", "Need to Follow", scores.F],
+      ["W", "Need for Rules", scores.W],
+      ["TOTAL SKALA KEBUTUHAN", "", needTotal],
+      [],
+      ["TOTAL SKOR KESELURUHAN", "", grandTotal]
+    ];
 
-.completion-banner h2 {
-  margin: 0 0 8px;
-  color: #166534;
-  font-size: 1.4rem;
-}
+    const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + 
+      csvRows.map(row => row.map(val => `"${val}"`).join(",")).join("\n");
 
-.completion-banner p {
-  margin: 0 0 16px;
-  color: #15803d;
-  font-size: 1rem;
-}
-
-.completion-info {
-  background: #ffffff;
-  border: 1px solid #dcfce7;
-  border-radius: 8px;
-  padding: 16px;
-  color: #166534;
-}
-
-.completion-info p {
-  margin: 0 0 8px;
-  color: #14532d;
-  font-size: 0.95rem;
-}
-
-.completion-info ul {
-  margin: 0;
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.completion-info li {
-  font-size: 0.9rem;
-  color: #166534;
-  line-height: 1.4;
-}
-
-/* Styling Tombol Download Report Excel (.CSV) */
-.download-box {
-  margin-top: 24px;
-  text-align: center;
-}
-
-.download-btn {
-  background: #16a34a;
-  color: #ffffff;
-  font-weight: 600;
-  padding: 14px 24px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s ease, transform 0.1s ease;
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-}
-
-.download-btn:hover {
-  background: #15803d;
-}
-
-.download-btn:active {
-  transform: scale(0.99);
-}
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    const filename = `PAPI_Kostick_${(candidate.fullName || 'Peserta').replace(/\s+/g, '_')}.csv`;
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+});
