@@ -306,3 +306,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.removeChild(link);
   }
 });
+/* Memaksa elemen result tampil saat class .hidden dilepas */
+#result:not(.hidden) {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin-top: 24px;
+}                       
