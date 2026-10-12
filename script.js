@@ -12,17 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
   let candidateData = {};
   let timerInterval = null;
   const TOTAL_QUESTIONS = 90;
-  const TOTAL_TIME_SECONDS = 30 * 60; // 30 Menit (1800 Detik)
+  const TOTAL_TIME_SECONDS = 30 * 60; // 30 Menit
   let timeRemaining = TOTAL_TIME_SECONDS;
 
-  // =========================================================
-  // STEP 1: Submit Form Data Diri & Transisi ke Halaman Soal
-  // =========================================================
+  // STEP 1: Submit Form Data Diri
   if (identityForm) {
     identityForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      // Ambil Data Peserta
       candidateData = {
         fullName: document.getElementById('fullName').value.trim(),
         email: document.getElementById('email').value.trim(),
@@ -31,30 +28,23 @@ document.addEventListener('DOMContentLoaded', function () {
         position: document.getElementById('position').value.trim()
       };
 
-      // Sembunyikan Section Data Diri & Hero (jika ada)
       if (identitySection) identitySection.classList.add('hidden');
       const heroSection = document.getElementById('heroSection');
       if (heroSection) heroSection.classList.add('hidden');
 
-      // Tampilkan Header Timer & Form Soal Psikotes
       if (quizHeader) quizHeader.classList.remove('hidden');
       if (quizForm) quizForm.classList.remove('hidden');
 
-      // Scroll ke paling atas layar
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // Jalankan Timer & Siapkan Monitoring Progress Pengerjaan
       startTimer();
       initProgressTracker();
     });
   }
 
-  // =========================================================
-  // TIMER & PROGRESS TRACKER MANAGEMENT
-  // =========================================================
+  // TIMER & PROGRESS
   function startTimer() {
     updateTimerDisplay();
-
     timerInterval = setInterval(function () {
       timeRemaining--;
       updateTimerDisplay();
@@ -73,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const seconds = timeRemaining % 60;
     timerDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-    // Peringatan visual saat waktu tersisa <= 5 Menit (300 Detik)
     if (timeRemaining <= 300 && quizHeader) {
       quizHeader.classList.add('warning');
     }
@@ -81,8 +70,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function initProgressTracker() {
     if (!quizForm) return;
-
-    // Listen perubahan pilihan radio button
     quizForm.addEventListener('change', function () {
       const answeredQuestions = quizForm.querySelectorAll('.question-card input[type="radio"]:checked').length;
       const percentage = Math.round((answeredQuestions / TOTAL_QUESTIONS) * 100);
@@ -92,9 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // =========================================================
-  // STEP 2: Submit Form Manual oleh Peserta
-  // =========================================================
+  // STEP 2: Submit Form Soal
   if (quizForm) {
     quizForm.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -103,39 +88,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // =========================================================
-  // STEP 3: Perhitungan 20 Aspek PAPI Kostick & Render Hasil
-  // =========================================================
+  // STEP 3: Kalkulasi Skor & Render Hasil
   function processQuizSubmission(isTimeOut) {
-    // Inisialisasi 20 Skala PAPI Kostick (0-9 Score Scale)
     const papiScores = {
-      // Scale Peran (Role)
       G: 0, L: 0, I: 0, T: 0, V: 0, S: 0, R: 0, D: 0, C: 0, E: 0,
-      // Scale Kebutuhan (Need)
       N: 0, A: 0, P: 0, X: 0, B: 0, O: 0, Z: 0, K: 0, F: 0, W: 0
     };
 
     const questions = quizForm.querySelectorAll('.question-card');
     let answeredCount = 0;
 
-    // Lepas atribut 'required' jika submit otomatis karena timeout
     if (isTimeOut) {
       const radioInputs = quizForm.querySelectorAll('input[type="radio"]');
       radioInputs.forEach(input => input.removeAttribute('required'));
     }
 
-    // Algoritma Pemetaan Jawaban ke 20 Aspek PAPI
     questions.forEach((question, index) => {
       const selected = question.querySelector('input:checked');
-
       if (selected) {
         answeredCount++;
         const val = Number(selected.value);
         const qNum = index + 1;
 
-        // Distribusi Bobot Aspek berdasarkan nilai opsi (1 - 5)
         if (val >= 4) {
-          // Aspek Peran (Role)
           if (qNum % 10 === 1) papiScores.G++;
           else if (qNum % 10 === 2) papiScores.L++;
           else if (qNum % 10 === 3) papiScores.I++;
@@ -147,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
           else if (qNum % 10 === 9) papiScores.C++;
           else papiScores.E++;
         } else if (val <= 2) {
-          // Aspek Kebutuhan (Need)
           if (qNum % 10 === 1) papiScores.N++;
           else if (qNum % 10 === 2) papiScores.A++;
           else if (qNum % 10 === 3) papiScores.P++;
@@ -162,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    // Total Skor Skala Peran & Kebutuhan
     const totalRole = papiScores.G + papiScores.L + papiScores.I + papiScores.T + papiScores.V +
                       papiScores.S + papiScores.R + papiScores.D + papiScores.C + papiScores.E;
 
@@ -171,48 +144,51 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const grandTotal = totalRole + totalNeed;
 
-    // Sembunyikan Form Psikotes & Timer Header
+    // Sembunyikan Form Soal & Header Timer
     if (quizHeader) quizHeader.classList.add('hidden');
     if (quizForm) quizForm.classList.add('hidden');
 
-    // Render Tampilan Dashboard Hasil Assessment & Pesan Penutup
+    // Paksa elemen result tampil
     if (resultBox) {
       resultBox.classList.remove('hidden');
+      resultBox.setAttribute('style', 'display: block !important;');
+
       resultBox.innerHTML = `
-        <!-- PESAN PENUTUP & INFORMASI KANDIDAT -->
-        <div class="completion-banner">
-          <h2>🎉 Tes Asesmen Selesai!</h2>
-          <p>Terima kasih telah menyelesaikan Asesmen Kepribadian PAPI Kostick.</p>
-          <div class="completion-info">
-            <p><strong>Informasi Penting untuk Peserta:</strong></p>
-            <ul>
+        <!-- BANNER UCAPAN TERIMA KASIH -->
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:24px; margin-bottom:24px;">
+          <h2 style="margin:0 0 8px; color:#166534; font-size:1.4rem;">🎉 Tes Asesmen Selesai!</h2>
+          <p style="margin:0 0 16px; color:#15803d; font-size:1rem;">Terima kasih telah menyelesaikan Asesmen Kepribadian PAPI Kostick.</p>
+          <div style="background:#ffffff; border:1px solid #dcfce7; border-radius:8px; padding:16px; color:#166534;">
+            <p style="margin:0 0 8px; font-weight:bold; color:#14532d;">Informasi Penting untuk Peserta:</p>
+            <ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px;">
               <li>Jawaban dan hasil tes Anda telah berhasil terekam dalam sistem rekrutmen kami.</li>
-              <li>Tim Talent Acquisition / HRD akan meninjau profil kepribadian ini bersama dengan kualifikasi berkas pendaftaran Anda.</li>
-              <li>Informasi kelanjutan proses seleksi akan dikirimkan melalui <strong>Email</strong> atau nomor <strong>WhatsApp</strong> resmi perusahaan.</li>
+              <li>Tim HRD / Talent Acquisition akan meninjau profil kepribadian ini bersama dengan berkas pendaftaran Anda.</li>
+              <li>Pengumuman tahap seleksi selanjutnya akan disampaikan via <strong>Email</strong> atau <strong>WhatsApp</strong> resmi kami.</li>
             </ul>
           </div>
         </div>
 
-        ${isTimeOut ? '<div style="color:#b91c1c; font-weight:600; background:#fee2e2; border: 1px solid #fca5a5; padding:12px 16px; border-radius:8px; margin-bottom:20px;">⚠️ Waktu pengerjaan (30 menit) telah habis. Hasil di bawah dihitung berdasarkan jawaban yang berhasil tersubmit.</div>' : ''}
+        ${isTimeOut ? '<div style="color:#b91c1c; font-weight:600; background:#fee2e2; border:1px solid #fca5a5; padding:12px 16px; border-radius:8px; margin-bottom:20px;">⚠️ Waktu pengerjaan (30 menit) telah habis. Hasil di bawah dihitung berdasarkan jawaban yang berhasil tersubmit.</div>' : ''}
 
-        <div class="candidate-summary">
-          <h3 style="margin-top:0; color: var(--primary); font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Data Peserta</h3>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px 16px; margin-top: 12px;">
-            <p style="margin: 0;"><strong>Nama Lengkap:</strong> ${candidateData.fullName || '-'}</p>
-            <p style="margin: 0;"><strong>Email:</strong> ${candidateData.email || '-'}</p>
-            <p style="margin: 0;"><strong>No. HP / WA:</strong> ${candidateData.phone || '-'}</p>
-            <p style="margin: 0;"><strong>Jenis Kelamin:</strong> ${candidateData.gender || '-'}</p>
-            <p style="margin: 0;"><strong>Posisi Dilamar:</strong> ${candidateData.position || '-'}</p>
-            <p style="margin: 0;"><strong>Soal Terjawab:</strong> ${answeredCount} / ${TOTAL_QUESTIONS} Soal</p>
+        <!-- DATA PESERTA -->
+        <div style="background:#fff; border:1px solid #e2e8f0; padding:20px; border-radius:12px; margin-bottom:20px;">
+          <h3 style="margin-top:0; color:#0f172a; font-size:1.1rem; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">Data Peserta</h3>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:8px 16px; margin-top:12px;">
+            <p style="margin:0;"><strong>Nama Lengkap:</strong> ${candidateData.fullName || '-'}</p>
+            <p style="margin:0;"><strong>Email:</strong> ${candidateData.email || '-'}</p>
+            <p style="margin:0;"><strong>No. HP / WA:</strong> ${candidateData.phone || '-'}</p>
+            <p style="margin:0;"><strong>Jenis Kelamin:</strong> ${candidateData.gender || '-'}</p>
+            <p style="margin:0;"><strong>Posisi Dilamar:</strong> ${candidateData.position || '-'}</p>
+            <p style="margin:0;"><strong>Soal Terjawab:</strong> ${answeredCount} / ${TOTAL_QUESTIONS} Soal</p>
           </div>
         </div>
 
+        <!-- BOARD PROFIL KEPRIBADIAN -->
         <div class="papi-results-container">
-          <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 16px;">Profil Kepribadian PAPI Kostick</h3>
+          <h3 style="color:#0f172a; font-size:1.15rem; margin-bottom:16px;">Profil Kepribadian PAPI Kostick</h3>
           
-          <!-- SKALA PERAN (ROLE) -->
-          <div class="papi-group">
-            <h4>Skala Peran (Role) — Total Score: ${totalRole}</h4>
+          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin-bottom:20px;">
+            <h4 style="margin-top:0; color:#0f172a;">Skala Peran (Role) — Total Score: ${totalRole}</h4>
             <div class="papi-grid">
               <div class="papi-card"><span class="code">G</span><span class="score">${papiScores.G}</span><span class="label">Hard Work</span></div>
               <div class="papi-card"><span class="code">L</span><span class="score">${papiScores.L}</span><span class="label">Leadership</span></div>
@@ -228,9 +204,8 @@ document.addEventListener('DOMContentLoaded', function () {
             <p class="summary-text">G: ${papiScores.G}, L: ${papiScores.L}, I: ${papiScores.I}, T: ${papiScores.T}, V: ${papiScores.V}, S: ${papiScores.S}, R: ${papiScores.R}, D: ${papiScores.D}, C: ${papiScores.C}, E: ${papiScores.E} <strong>(Total: ${totalRole})</strong></p>
           </div>
 
-          <!-- SKALA KEBUTUHAN (NEED) -->
-          <div class="papi-group">
-            <h4>Skala Kebutuhan (Need) — Total Score: ${totalNeed}</h4>
+          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin-bottom:20px;">
+            <h4 style="margin-top:0; color:#0f172a;">Skala Kebutuhan (Need) — Total Score: ${totalNeed}</h4>
             <div class="papi-grid">
               <div class="papi-card"><span class="code">N</span><span class="score">${papiScores.N}</span><span class="label">Finish</span></div>
               <div class="papi-card"><span class="code">A</span><span class="score">${papiScores.A}</span><span class="label">Achieve</span></div>
@@ -246,35 +221,34 @@ document.addEventListener('DOMContentLoaded', function () {
             <p class="summary-text">N: ${papiScores.N}, A: ${papiScores.A}, P: ${papiScores.P}, X: ${papiScores.X}, B: ${papiScores.B}, O: ${papiScores.O}, Z: ${papiScores.Z}, K: ${papiScores.K}, F: ${papiScores.F}, W: ${papiScores.W} <strong>(Total: ${totalNeed})</strong></p>
           </div>
 
-          <div class="grand-total-box" style="margin-bottom: 20px;">
+          <div style="background:#0f172a; color:#fff; text-align:center; padding:16px; border-radius:10px; margin-bottom:20px;">
             <strong>TOTAL SKOR KESELURUHAN (ROLE + NEED): ${grandTotal} / 90</strong>
           </div>
 
-          <!-- TOMBOL UNDUH LAPORAN EXCEL / CSV -->
-          <div class="download-box">
-            <button id="downloadExcelBtn" class="download-btn">
+          <!-- TOMBOL DOWNLOAD LAPORAN EXCEL -->
+          <div style="text-align:center; margin-top:24px;">
+            <button id="downloadExcelBtn" style="background:#16a34a; color:#ffffff; font-weight:bold; padding:14px 28px; border:none; border-radius:8px; cursor:pointer; font-size:1rem; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); width:100%;">
               📊 Download Laporan Hasil (Excel / CSV)
             </button>
           </div>
         </div>
       `;
 
-      // Event listener tombol unduh laporan Excel
-      const downloadBtn = document.getElementById('downloadExcelBtn');
-      if (downloadBtn) {
-        downloadBtn.addEventListener('click', function () {
-          downloadReportAsCSV(candidateData, papiScores, totalRole, totalNeed, grandTotal, answeredCount);
-        });
-      }
+      // Assign Handler Download Excel
+      setTimeout(() => {
+        const downloadBtn = document.getElementById('downloadExcelBtn');
+        if (downloadBtn) {
+          downloadBtn.onclick = function () {
+            downloadReportAsCSV(candidateData, papiScores, totalRole, totalNeed, grandTotal, answeredCount);
+          };
+        }
+      }, 50);
 
-      // Scroll mulus ke bagian hasil
       window.scrollTo({ top: resultBox.offsetTop - 20, behavior: 'smooth' });
     }
   }
 
-  // =========================================================
-  // FUNGSI UTILITY: GENERATE & UNDUH FILE EXCEL (.CSV)
-  // =========================================================
+  // FUNGSI UTILITY DOWNLOAD KE EXCEL (.CSV)
   function downloadReportAsCSV(candidate, scores, roleTotal, needTotal, grandTotal, answered) {
     const csvRows = [
       ["LAPORAN HASIL ASESMEN PSIKOTES PAPI KOSTICK"],
