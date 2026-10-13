@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
       candidateData = {
         fullName: document.getElementById('fullName').value.trim(),
         email: document.getElementById('email').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
+        phone: document.getElementById('phone').value.replace(/[^0-9]/g, ''), // <-- Ganti baris phone dengan ini
         gender: document.getElementById('gender').value,
         position: document.getElementById('position').value.trim()
       };
