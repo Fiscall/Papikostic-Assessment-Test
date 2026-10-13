@@ -28,10 +28,15 @@ document.addEventListener('DOMContentLoaded', function () {
         position: document.getElementById('position').value.trim()
       };
 
+      // Sembunyikan Panduan Pengerjaan, Section Data Diri, & Hero Header
+      const instructionsCard = document.getElementById('instructionsCard');
+      if (instructionsCard) instructionsCard.classList.add('hidden');
+
       if (identitySection) identitySection.classList.add('hidden');
       const heroSection = document.getElementById('heroSection');
       if (heroSection) heroSection.classList.add('hidden');
 
+      // Tampilkan Header Timer/Progress & Form Soal Psikotes
       if (quizHeader) quizHeader.classList.remove('hidden');
       if (quizForm) quizForm.classList.remove('hidden');
 
@@ -174,135 +179,4 @@ document.addEventListener('DOMContentLoaded', function () {
         <div style="background:#fff; border:1px solid #e2e8f0; padding:20px; border-radius:12px; margin-bottom:20px;">
           <h3 style="margin-top:0; color:#0f172a; font-size:1.1rem; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">Data Peserta</h3>
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:8px 16px; margin-top:12px;">
-            <p style="margin:0;"><strong>Nama Lengkap:</strong> ${candidateData.fullName || '-'}</p>
-            <p style="margin:0;"><strong>Email:</strong> ${candidateData.email || '-'}</p>
-            <p style="margin:0;"><strong>No. HP / WA:</strong> ${candidateData.phone || '-'}</p>
-            <p style="margin:0;"><strong>Jenis Kelamin:</strong> ${candidateData.gender || '-'}</p>
-            <p style="margin:0;"><strong>Posisi Dilamar:</strong> ${candidateData.position || '-'}</p>
-            <p style="margin:0;"><strong>Soal Terjawab:</strong> ${answeredCount} / ${TOTAL_QUESTIONS} Soal</p>
-          </div>
-        </div>
-
-        <!-- BOARD PROFIL KEPRIBADIAN -->
-        <div class="papi-results-container">
-          <h3 style="color:#0f172a; font-size:1.15rem; margin-bottom:16px;">Profil Kepribadian PAPI Kostick</h3>
-          
-          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin-bottom:20px;">
-            <h4 style="margin-top:0; color:#0f172a;">Skala Peran (Role) — Total Score: ${totalRole}</h4>
-            <div class="papi-grid">
-              <div class="papi-card"><span class="code">G</span><span class="score">${papiScores.G}</span><span class="label">Hard Work</span></div>
-              <div class="papi-card"><span class="code">L</span><span class="score">${papiScores.L}</span><span class="label">Leadership</span></div>
-              <div class="papi-card"><span class="code">I</span><span class="score">${papiScores.I}</span><span class="label">Decision</span></div>
-              <div class="papi-card"><span class="code">T</span><span class="score">${papiScores.T}</span><span class="label">Pace</span></div>
-              <div class="papi-card"><span class="code">V</span><span class="score">${papiScores.V}</span><span class="label">Vigorousness</span></div>
-              <div class="papi-card"><span class="code">S</span><span class="score">${papiScores.S}</span><span class="label">Social</span></div>
-              <div class="papi-card"><span class="code">R</span><span class="score">${papiScores.R}</span><span class="label">Theoretical</span></div>
-              <div class="papi-card"><span class="code">D</span><span class="score">${papiScores.D}</span><span class="label">Detail</span></div>
-              <div class="papi-card"><span class="code">C</span><span class="score">${papiScores.C}</span><span class="label">Organized</span></div>
-              <div class="papi-card"><span class="code">E</span><span class="score">${papiScores.E}</span><span class="label">Emotional</span></div>
-            </div>
-            <p class="summary-text">G: ${papiScores.G}, L: ${papiScores.L}, I: ${papiScores.I}, T: ${papiScores.T}, V: ${papiScores.V}, S: ${papiScores.S}, R: ${papiScores.R}, D: ${papiScores.D}, C: ${papiScores.C}, E: ${papiScores.E} <strong>(Total: ${totalRole})</strong></p>
-          </div>
-
-          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin-bottom:20px;">
-            <h4 style="margin-top:0; color:#0f172a;">Skala Kebutuhan (Need) — Total Score: ${totalNeed}</h4>
-            <div class="papi-grid">
-              <div class="papi-card"><span class="code">N</span><span class="score">${papiScores.N}</span><span class="label">Finish</span></div>
-              <div class="papi-card"><span class="code">A</span><span class="score">${papiScores.A}</span><span class="label">Achieve</span></div>
-              <div class="papi-card"><span class="code">P</span><span class="score">${papiScores.P}</span><span class="label">Control</span></div>
-              <div class="papi-card"><span class="code">X</span><span class="score">${papiScores.X}</span><span class="label">Noticed</span></div>
-              <div class="papi-card"><span class="code">B</span><span class="score">${papiScores.B}</span><span class="label">Belong</span></div>
-              <div class="papi-card"><span class="code">O</span><span class="score">${papiScores.O}</span><span class="label">Affection</span></div>
-              <div class="papi-card"><span class="code">Z</span><span class="score">${papiScores.Z}</span><span class="label">Change</span></div>
-              <div class="papi-card"><span class="code">K</span><span class="score">${papiScores.K}</span><span class="label">Forceful</span></div>
-              <div class="papi-card"><span class="code">F</span><span class="score">${papiScores.F}</span><span class="label">Follow</span></div>
-              <div class="papi-card"><span class="code">W</span><span class="score">${papiScores.W}</span><span class="label">Rules</span></div>
-            </div>
-            <p class="summary-text">N: ${papiScores.N}, A: ${papiScores.A}, P: ${papiScores.P}, X: ${papiScores.X}, B: ${papiScores.B}, O: ${papiScores.O}, Z: ${papiScores.Z}, K: ${papiScores.K}, F: ${papiScores.F}, W: ${papiScores.W} <strong>(Total: ${totalNeed})</strong></p>
-          </div>
-
-          <div style="background:#0f172a; color:#fff; text-align:center; padding:16px; border-radius:10px; margin-bottom:20px;">
-            <strong>TOTAL SKOR KESELURUHAN (ROLE + NEED): ${grandTotal} / 90</strong>
-          </div>
-
-          <!-- TOMBOL DOWNLOAD LAPORAN EXCEL -->
-          <div style="text-align:center; margin-top:24px;">
-            <button id="downloadExcelBtn" style="background:#16a34a; color:#ffffff; font-weight:bold; padding:14px 28px; border:none; border-radius:8px; cursor:pointer; font-size:1rem; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); width:100%;">
-              📊 Download Laporan Hasil (Excel / CSV)
-            </button>
-          </div>
-        </div>
-      `;
-
-      // Assign Handler Download Excel
-      setTimeout(() => {
-        const downloadBtn = document.getElementById('downloadExcelBtn');
-        if (downloadBtn) {
-          downloadBtn.onclick = function () {
-            downloadReportAsCSV(candidateData, papiScores, totalRole, totalNeed, grandTotal, answeredCount);
-          };
-        }
-      }, 50);
-
-      window.scrollTo({ top: resultBox.offsetTop - 20, behavior: 'smooth' });
-    }
-  }
-
-  // FUNGSI UTILITY DOWNLOAD KE EXCEL (.CSV)
-  function downloadReportAsCSV(candidate, scores, roleTotal, needTotal, grandTotal, answered) {
-    const csvRows = [
-      ["LAPORAN HASIL ASESMEN PSIKOTES PAPI KOSTICK"],
-      ["Tanggal Asesmen", new Date().toLocaleDateString('id-ID')],
-      [],
-      ["DATA PESERTA"],
-      ["Nama Lengkap", candidate.fullName || "-"],
-      ["Email", candidate.email || "-"],
-      ["No. HP / WA", candidate.phone || "-"],
-      ["Jenis Kelamin", candidate.gender || "-"],
-      ["Posisi Dilamar", candidate.position || "-"],
-      ["Soal Terjawab", `${answered} / 90 Soal`],
-      [],
-      ["SKOR SKALA PERAN (ROLE)"],
-      ["Kode Aspek", "Nama Aspek", "Skor (0-9)"],
-      ["G", "Hard Work", scores.G],
-      ["L", "Leadership", scores.L],
-      ["I", "Decision Making", scores.I],
-      ["T", "Pace", scores.T],
-      ["V", "Vigorousness", scores.V],
-      ["S", "Social Extension", scores.S],
-      ["R", "Theoretical Type", scores.R],
-      ["D", "Detail Conscious", scores.D],
-      ["C", "Organized", scores.C],
-      ["E", "Emotional Control", scores.E],
-      ["TOTAL SKALA PERAN", "", roleTotal],
-      [],
-      ["SKOR SKALA KEBUTUHAN (NEED)"],
-      ["Kode Aspek", "Nama Aspek", "Skor (0-9)"],
-      ["N", "Need to Finish", scores.N],
-      ["A", "Need to Achieve", scores.A],
-      ["P", "Need to Control", scores.P],
-      ["X", "Need to be Noticed", scores.X],
-      ["B", "Need to Belong", scores.B],
-      ["O", "Need for Affection", scores.O],
-      ["Z", "Need for Change", scores.Z],
-      ["K", "Need to be Forceful", scores.K],
-      ["F", "Need to Follow", scores.F],
-      ["W", "Need for Rules", scores.W],
-      ["TOTAL SKALA KEBUTUHAN", "", needTotal],
-      [],
-      ["TOTAL SKOR KESELURUHAN", "", grandTotal]
-    ];
-
-    const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + 
-      csvRows.map(row => row.map(val => `"${val}"`).join(",")).join("\n");
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    const filename = `PAPI_Kostick_${(candidate.fullName || 'Peserta').replace(/\s+/g, '_')}.csv`;
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-});
+            <p style="margin:0;"><strong>Nama Lengkap:</strong> ${candidateData.
